@@ -28,7 +28,7 @@ def main():
     browser.find_element(by=By.CLASS_NAME, value='login-button').click()
     time.sleep(random.randint(3, 6))
     # 点击账号登录
-    browser.find_element(by=By.XPATH, value'//div[@class="dlann"]/div[4]').click()
+    browser.find_element(by=By.XPATH, value='//div[@class="dlann"]/div[4]').click()
     time.sleep(random.randint(3, 6))
     # 输入用户名
     browser.find_element(by=By.XPATH, value='//div[@id="zhdlk"]/div/label[2]/input').send_keys(username)

@@ -11,6 +11,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 
 def main():
+    print("开始签到......")
     chrome_option = Options()
     chrome_option.add_argument('--headless') # 无界面浏览
     chrome_option.add_argument('--window-size=2560,1600')
@@ -40,11 +41,11 @@ def main():
     browser.find_element(by=By.XPATH, value='//div[@id="zhdlk"]/div/div[3]/button').click()
     time.sleep(random.randint(3, 6))
     
-    # 刷锋币
+    # 点击头像
     browser.find_element(by=By.XPATH, value='//div[@class="top-user-avatar avatar-parent"]/img').click()
     time.sleep(random.randint(3, 6))
     # 点击任务中心
-    browser.find_element(by=By.XPATH, value='//ul/li[5]/a/p/span').click()
+    browser.find_element(by=By.XPATH, value='//ul/li[3]/a/p/span').click()
     time.sleep(random.randint(3, 6))
     # 点击签到   
     browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[4]/a').click()
@@ -94,7 +95,7 @@ def main():
         # 刷新页面
         browser.refresh()
         time.sleep(random.randint(3, 6))
-
+    print("签到成功......")
     browser.quit()
      
     

@@ -13,7 +13,7 @@ from selenium.webdriver.chrome.service import Service
 def main():
     print("开始签到......")
     chrome_option = Options()
-    chrome_option.add_argument('--headless') # 无界面浏览
+    # chrome_option.add_argument('--headless') # 无界面浏览
     chrome_option.add_argument('--window-size=2560,1600')
     chrome_option.add_argument('--disable-infobars') #去掉chrome正受到自动测试软件的控制的提示
     chrome_option.add_argument('user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"') #添加请求头
@@ -40,12 +40,11 @@ def main():
     # 点击快速登录
     browser.find_element(by=By.XPATH, value='//div[@id="zhdlk"]/div/div[3]/button').click()
     time.sleep(random.randint(5, 10))
-    
-    # 点击头像
-    browser.find_element(by=By.XPATH, value='//div[@class="top-user-avatar avatar-parent"]/img').click()
+    # 显示任务中心
+    browser.find_element(by=By.XPATH, value='//ul/li[@class="la-do"]/button').click()
     time.sleep(random.randint(5, 10))
     # 点击任务中心
-    browser.find_element(by=By.XPATH, value='//ul/li[3]/a/p/span').click()
+    browser.find_element(by=By.XPATH, value='//ul/li[@class="you"]/a').click()
     time.sleep(random.randint(5, 10))
     # 点击签到   
     browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[4]/a').click()
@@ -78,8 +77,6 @@ def main():
         browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[2]/a').click()
         time.sleep(random.randint(5, 10))
         ## 评论
-        # browser.find_element(by=By.XPATH, value='//div[@id="comments"]/div/a').click()
-        # time.sleep(random.randint(5, 10))
         browser.find_element(by=By.XPATH, value='//div["respond"]/div[3]/div[2]/div[2]/textarea[@id="textarea"]').click()
         time.sleep(random.randint(5, 10))
         browser.find_element(by=By.XPATH, value='//div["respond"]/div[3]/div[2]/div[2]/textarea[@id="textarea"]').send_keys(random.choice(comments))
@@ -90,8 +87,6 @@ def main():
         ## 返回任务中心
         browser.back()
         time.sleep(random.randint(5, 10))
-        # browser.back()
-        # time.sleep(random.randint(5, 10))
         # 刷新页面
         browser.refresh()
         time.sleep(random.randint(5, 10))

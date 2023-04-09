@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time: 2022/10/6 16:01
 # @Author: oyret
+# 此脚本只适用Windows操作系统
 
 import re
 import time
@@ -13,7 +14,6 @@ from selenium.webdriver.chrome.service import Service
 def main():
     print("开始签到......")
     chrome_option = Options()
-    # chrome_option.add_argument('--headless') # 无界面浏览
     chrome_option.add_argument('--window-size=2560,1600')
     chrome_option.add_argument('--disable-infobars') #去掉chrome正受到自动测试软件的控制的提示
     chrome_option.add_argument('user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"') #添加请求头

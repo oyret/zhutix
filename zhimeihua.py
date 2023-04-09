@@ -39,14 +39,20 @@ def main():
     # 点击快速登录
     browser.find_element(by=By.XPATH, value='//div[@id="zhdlk"]/div/div[3]/button').click()
     time.sleep(random.randint(5, 10))
+    # 显示每日签到
+    browser.find_element(by=By.XPATH, value='//ul/li[@class="la-do"]/button').click()
+    time.sleep(random.randint(5, 10))
+    # 点击每日签到
+    browser.find_element(by=By.XPATH, value='//ul/li[@class="you"][2]/a').click()
+    time.sleep(random.randint(5, 10))
+    # 点击签到 
+    browser.find_element(by=By.XPATH, value='//main[@id="main"]/div[1]/div[2]/div[2]/button').click()
+    time.sleep(random.randint(5, 10))
     # 显示任务中心
     browser.find_element(by=By.XPATH, value='//ul/li[@class="la-do"]/button').click()
     time.sleep(random.randint(5, 10))
     # 点击任务中心
-    browser.find_element(by=By.XPATH, value='//ul/li[@class="you"]/a').click()
-    time.sleep(random.randint(5, 10))
-    # 点击签到   
-    browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[4]/a').click()
+    browser.find_element(by=By.XPATH, value='//ul/li[@class="you"][1]/a').click()
     time.sleep(random.randint(5, 10))
     # 点击关注某人
     browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[3]/a').click()

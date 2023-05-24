@@ -54,48 +54,59 @@ def main():
     # 点击任务中心
     browser.find_element(by=By.XPATH, value='//ul/li[@class="you"][1]/a').click()
     time.sleep(random.randint(5, 10))
-    # 点击关注某人
-    browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[3]/a').click()
-    time.sleep(random.randint(5, 10))   
-    ## 点击关注
-    while browser.find_element(by=By.XPATH, value='//div[@id="primary-home"]/div/div/div/div/label/input').get_attribute('value') < re.search('\d{1,6}', browser.find_element(by=By.XPATH, value="//div[@id='primary-home']/div/div/div/div/label").text)[0]: # 当前页码 < 总页码
-        flag = 0 # 是否点击关注的标志
-        for i in range(1,17):
-            if browser.find_element(by=By.XPATH, value='//ul/li[{}]/div/div[4]/button[1]'.format(i)).text!='已关注':      
-                browser.find_element(by=By.XPATH, value='//ul/li[{}]/div/div[4]/button[1]'.format(i)).click()
-                flag = 1
+
+    if int(browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[3]/div/span[@class="task-finish"]/b[1]').text) < 1:
+        # 点击关注某人
+        browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[3]/a').click()
+        time.sleep(random.randint(5, 10))   
+        ## 点击关注
+        while browser.find_element(by=By.XPATH, value='//div[@id="primary-home"]/div/div/div/div/label/input').get_attribute('value') < re.search('\d{1,6}', browser.find_element(by=By.XPATH, value="//div[@id='primary-home']/div/div/div/div/label").text)[0]: # 当前页码 < 总页码
+            flag = 0 # 是否点击关注的标志，0 未关注，1 已关注
+            for i in range(1,25):
+                if browser.find_element(by=By.XPATH, value='//ul/li[{}]/div/div[4]/button[1]'.format(i)).text!='已关注':      
+                    browser.find_element(by=By.XPATH, value='//ul/li[{}]/div/div[4]/button[1]'.format(i)).click()
+                    flag = 1
+                    time.sleep(random.randint(5, 10))
+                    break   
+                time.sleep(random.randint(2, 3))  
+            if flag == 0:
+                browser.find_element(by=By.XPATH, value='//*[@id="primary-home"]/div[3]/div/div/div[2]/a[2]').click() # 下一页
+                time.sleep(random.randint(2, 3))  
+            else:
+                ## 返回任务中心
+                for j in range(int(browser.find_element(by=By.XPATH, value='//div[@id="primary-home"]/div/div/div/div/label/input').get_attribute('value'))):  # 页面后退次数由当前页码确定
+                    browser.back()
+                    time.sleep(random.randint(5, 10))
+                break
+    else:
+        time.sleep(random.randint(5, 10))
+        print('今天已经完成关注任务啦~')
+
+    if int(browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[2]/div/span[@class="task-finish"]/b[1]').text) == 3:
+        print('今天已经完成3次评论啦~')
+    else:
+        while int(browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[2]/div/span[@class="task-finish"]/b[1]').text) < 3:
+            try:
+                # 点击评论
+                browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[2]/a').click()
                 time.sleep(random.randint(5, 10))
-                break   
-            time.sleep(random.randint(2, 3))  
-        if flag == 0:
-            browser.find_element(by=By.XPATH, value='//*[@id="primary-home"]/div[2]/div/div/div[2]/a[2]').click() # 下一页
-            time.sleep(random.randint(2, 3))  
-        else:
-            ## 返回任务中心
-            for j in range(int(browser.find_element(by=By.XPATH, value='//div[@id="primary-home"]/div/div/div/div/label/input').get_attribute('value'))):  # 页面后退次数由当前页码确定
+                ## 评论
+                browser.find_element(by=By.XPATH, value='//div["respond"]/div[3]/div[2]/div[2]/textarea[@id="textarea"]').click()
+                time.sleep(random.randint(5, 10))
+                browser.find_element(by=By.XPATH, value='//div["respond"]/div[3]/div[2]/div[2]/textarea[@id="textarea"]').send_keys(random.choice(comments))
+                time.sleep(random.randint(5, 10))
+                browser.find_element(by=By.XPATH, value='//*[@id="respond"]/div[3]/div[3]/div[2]/button[2]').click()
+                time.sleep(random.randint(5, 10))
+            except:
+                print('评论过程中出现错误了~')
+            finally:
+                ## 返回任务中心
                 browser.back()
                 time.sleep(random.randint(5, 10))
-            break
-
-    for i in range(3):
-        # 点击评论
-        browser.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/div[1]/div[2]/ul/li[2]/a').click()
-        time.sleep(random.randint(5, 10))
-        ## 评论
-        browser.find_element(by=By.XPATH, value='//div["respond"]/div[3]/div[2]/div[2]/textarea[@id="textarea"]').click()
-        time.sleep(random.randint(5, 10))
-        browser.find_element(by=By.XPATH, value='//div["respond"]/div[3]/div[2]/div[2]/textarea[@id="textarea"]').send_keys(random.choice(comments))
-        time.sleep(random.randint(5, 10))
-        browser.find_element(by=By.XPATH, value='//*[@id="respond"]/div[3]/div[3]/div[2]/button[2]').click()
-        time.sleep(random.randint(5, 10))
-        
-        ## 返回任务中心
-        browser.back()
-        time.sleep(random.randint(5, 10))
-        # 刷新页面
-        browser.refresh()
-        time.sleep(random.randint(5, 10))
-    print("签到成功......")
+                # 刷新页面
+                browser.refresh()
+                time.sleep(random.randint(5, 10))
+    time.sleep(random.randint(5, 10))
     browser.quit()
      
     

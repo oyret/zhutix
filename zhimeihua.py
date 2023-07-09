@@ -62,22 +62,22 @@ def main():
         ## 点击关注
         while browser.find_element(by=By.XPATH, value='//div[@id="primary-home"]/div/div/div/div/label/input').get_attribute('value') < re.search('\d{1,6}', browser.find_element(by=By.XPATH, value="//div[@id='primary-home']/div/div/div/div/label").text)[0]: # 当前页码 < 总页码
             flag = 0 # 是否点击关注的标志，0 未关注，1 已关注
-            for i in range(1,25):
-                if browser.find_element(by=By.XPATH, value='//ul/li[{}]/div/div[4]/button[1]'.format(i)).text!='已关注':      
-                    browser.find_element(by=By.XPATH, value='//ul/li[{}]/div/div[4]/button[1]'.format(i)).click()
-                    flag = 1
-                    time.sleep(random.randint(5, 10))
-                    break   
-                time.sleep(random.randint(2, 3))  
-            if flag == 0:
+            while flag == 0:
+                for i in range(1,25):
+                    if browser.find_element(by=By.XPATH, value='//ul/li[{}]/div/div[4]/button[1]'.format(i)).text!='已关注':      
+                        browser.find_element(by=By.XPATH, value='//ul/li[{}]/div/div[4]/button[1]'.format(i)).click()
+                        flag = 1
+                        time.sleep(random.randint(5, 10))
+                        break   
+                    time.sleep(random.randint(2, 3))  
                 browser.find_element(by=By.XPATH, value='//*[@id="primary-home"]/div[3]/div/div/div[2]/a[2]').click() # 下一页
                 time.sleep(random.randint(2, 3))  
-            else:
-                ## 返回任务中心
-                for j in range(int(browser.find_element(by=By.XPATH, value='//div[@id="primary-home"]/div/div/div/div/label/input').get_attribute('value'))):  # 页面后退次数由当前页码确定
-                    browser.back()
-                    time.sleep(random.randint(5, 10))
-                break
+
+            ## 返回任务中心
+            for _ in range(int(browser.find_element(by=By.XPATH, value='//div[@id="primary-home"]/div/div/div/div/label/input').get_attribute('value'))):  # 页面后退次数由当前页码确定
+                browser.back()
+                time.sleep(random.randint(5, 10))
+            break
     else:
         time.sleep(random.randint(5, 10))
         print('今天已经完成关注任务啦~')
